@@ -1,0 +1,83 @@
+﻿@model MVC_StokTakip.Models.Urun
+@{
+    ViewBag.Title = "Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ekle</h2>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Easiest Way to Add Input Masks to Your Forms</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/registration/assets/css/style.css">
+</head>
+<body>
+    <div class="registration-form">
+
+
+
+        @using (Html.BeginForm("Ekle", "Urun", FormMethod.Post, new { enctype = "multipart/Form-data" }))
+        {
+            
+                
+                    
+
+                        <div class="form-group">
+                            <label>Ad</label>
+                            <input type="text" name="Ad" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Açıklama</label>
+                            <input type="text" name="Aciklama" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Resim", new { @class = "control-label col-md-2" })
+                            <input type="file" name="File" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Stok</label>
+                            <input type="text" name="Stok" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Fiyat</label>
+                            <input type="text" name="Fiyat" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Popüler", new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(x => x.Popüler)
+                        </div>
+
+                        <div class="form-group">
+                            <label>Kategori</label>
+                            @Html.DropDownListFor(x => x.KategoriID, (List<SelectListItem>)ViewBag.ktgr, new { @class = "form-control" })
+                        </div>
+                        <button class="btn btn-primary">Ekle</button>
+                        <a href="/Urun/Index">Ürün Listesi</a>
+
+                    
+                
+
+        }
+
+        <div class="social-media">
+
+
+        </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="~/registration/assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿@using MVC_StokTakip.Models
+@model List<Kategori>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container text-center">
+
+        <div class="col">
+            <h2>Kategoriler</h2>
+        </div>
+</div>
+
+<table class="table table-bordered table-dark">
+    <thead class="table-light">
+        <tr>
+            <th>Ad</th>
+            <th>Açıklama</th>
+            @if (User.IsInRole("A"))
+            {
+                <th>Sil</th>
+                <th>Düzenle</th>
+            }
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Ad</td>
+            <td>@item.Aciklama</td>
+            @if (User.IsInRole("A"))
+            {
+                <td>@Html.ActionLink("Sil", "Sil", new { id = item.ID }, new { @class = "btn btn-danger ", onclick = "return confirm('Silmek İstediğinden Emin misinz ?')" })</td>
+                <td><a href="/Kategori/Guncelle/@item.ID" class="btn btn-warning rounded-pill">Güncelle</a></td>
+            }
+        </tr>
+    }
+
+</table>
+
+<a href="/Kategori/Ekle" class="btn btn-primary btn-lg btn-block">Ekle</a>

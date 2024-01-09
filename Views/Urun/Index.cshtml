@@ -1,0 +1,84 @@
+﻿@using MVC_StokTakip.Models
+@model List<Urun>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    @using (Html.BeginForm())
+            {
+                <div style="width:25%; float:left">
+                    @Html.TextBox("Ara",null,new {@class = "form-control" , @placeholder = "Ürün Adı Veya Açıklama Şeklinde Ara Yapınız."})
+                    <div style="float:left">
+                        <input type="submit" name="btn" value="Ara" class="btn btn-info btn-lg btn-block" />  
+                    </div>
+                </div>
+            }
+
+</div>
+
+
+<br />
+<br />
+<table class="table table-bordered table-dark ">
+    <thead class="table-light">
+        <tr>
+            <th>Resim</th>
+            <th>Ad</th>
+            <th>Açıklama</th>
+            <th>Popüler</th>
+            <th>Fiyat</th>
+            <th>Stok</th>
+            <th>Kategori</th>
+            @if (User.IsInRole("A"))
+            {
+                <th>Sil</th>
+                <th>Düzenle</th>
+            }
+
+            @if (User.IsInRole("U"))
+            {
+                <th>Sepete Ekle</th>
+            }
+
+        </tr>
+    </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img src="~/Content/Image/@item.Resim" width="80" height="80" /></td>
+                <td>@item.Ad</td>
+                <td>@item.Aciklama</td>
+                <td>
+
+                    @if (item.Popüler == true)
+                    {
+                        <label  class="btn btn-success rounded-pil">Evet</label>
+                    }
+                    else
+                    {
+                        <label class="btn btn-danger rounded-pil">Hayır</label>
+                    }
+
+                </td>
+                <td>@item.Fiyat</td>
+                <td>@item.Stok</td>
+                <td>@item.Kategori.Ad</td>
+                @if (User.IsInRole("A"))
+                {
+                    <td>@Html.ActionLink("Sil", "Sil", new { id = item.ID }, new { @class = "btn btn-danger ", onclick = "return confirm('Silmek İstediğinden Emin misinz ?')" })</td>
+                    <td><a href="/Urun/Guncelle/@item.ID" class="btn btn-warning rounded-pill">Güncelle</a></td>
+                }
+
+                @if (User.IsInRole("U"))
+                {
+                    <td><a href="/Sepet/SepeteEkle/@item.ID" class="btn btn-success">Sepete Ekle</a></td>
+                }
+
+            </tr>
+        }
+
+</table>
+
+<a href="/Urun/Ekle" class="btn btn-primary btn-lg btn-block">Ekle</a>
