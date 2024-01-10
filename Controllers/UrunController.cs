@@ -58,11 +58,27 @@ namespace MVC_StokTakip.Controllers
         [Authorize(Roles = "A")]
         public ActionResult Sil(int id)
         {
-           var urun = db.Urun.Where(x => x.ID == id).FirstOrDefault();
-            db.Urun.Remove(urun);
-            db.SaveChanges();
+            try
+            {
+                var urun = db.Urun.Where(x => x.ID == id).FirstOrDefault();
+                if (urun != null)
+                {
+                    db.Urun.Remove(urun);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Silinecek ürün bulunamadı.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Bir hata oluştu: " + ex.Message);
+            }
+
             return RedirectToAction("Index");
         }
+
         [Authorize(Roles = "A")]
         public ActionResult Guncelle(int id)
         {
